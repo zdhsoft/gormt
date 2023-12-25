@@ -168,7 +168,8 @@ func (m *_Model) genTableElement(cols []ColumnsInfo) (el []genstruct.GenElement)
 				} else {
 					for _, v1 := range v.Index {
 						switch v1.Key {
-						// case ColumnsKeyDefault:
+						case ColumnsKeyDefault:
+							tmp.AddTag(_tagGorm, "default")
 						case ColumnsKeyPrimary: // primary key.主键
 							tmp.AddTag(_tagGorm, "primaryKey")
 							isPK = true
@@ -195,9 +196,9 @@ func (m *_Model) genTableElement(cols []ColumnsInfo) (el []genstruct.GenElement)
 					if len(v.Gormt) > 0 {
 						tmp.AddTag(_tagGorm, v.Gormt)
 					}
-					if len(v.Notes) > 0 {
-						tmp.AddTag(_tagGorm, fmt.Sprintf("comment:'%v'", v.Notes))
-					}
+					// if len(v.Notes) > 0 {
+					// 	tmp.AddTag(_tagGorm, fmt.Sprintf("comment:'%v'", v.Notes))
+					// }
 				} else {
 					tmp.AddTag(_tagGorm, "column:"+v.Name)
 				}
